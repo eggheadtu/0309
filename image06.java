@@ -127,19 +127,19 @@ public class image06 {
 		// 模板匹配
 		Imgproc.matchTemplate(source, template, result, match_method);
 		// 對陣列內元素執行標準化的程序，詳見P3-13
-		Core.normalize(result, result, 0, 255, Core.NORM_MINMAX, -1, new Mat());
+//		Core.normalize(result, result, 0, 255, Core.NORM_MINMAX, -1, new Mat());
 		// 尋找矩陣內最大值及最小值的位置
 		MinMaxLocResult mml = Core.minMaxLoc(result);
 		Point matchLoc;
-		if (match_method == Imgproc.TM_SQDIFF || match_method == Imgproc.TM_SQDIFF_NORMED) {
+		if (match_method == Imgproc.TM_SQDIFF || match_method == Imgproc.TM_SQDIFF_NORMED)
 			matchLoc = mml.minLoc;
-		} else {
+		else
 			matchLoc = mml.maxLoc;
-		}
+
 		// 用黑框標出相似位置
 		Imgproc.rectangle(source, matchLoc, new Point(matchLoc.x + template.cols(), matchLoc.y + template.rows()),
 				new Scalar(0, 0, 0), 2);
-		//擷取相似位置的矩陣
+		// 擷取相似位置的矩陣
 		Mat subsource_g = source_c.submat((int) matchLoc.y, (int) (matchLoc.y + template.rows()), (int) matchLoc.x,
 				(int) (matchLoc.x + template.cols()));
 		Imgcodecs.imwrite("C://opencv3.1//24.bmp", source);
